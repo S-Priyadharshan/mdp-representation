@@ -13,27 +13,27 @@ iii) Python - Dictonary representation
 The problem is to develop a Reinforcement Learning model for product detection in a manufacturing factory. The model should determine whether a product is ready to be exported or faulty based on its features. The goal is to optimize the production process and reduce the number of faulty products while maximizing the number of products ready for export.
 
 ### State Space
-{F,J,E} -> {0,1,2}
-where,
-  F -> Faulty
-  J-Juction(decision making state)
-  E -> Export
+S_wait(0)	Wait State	Main signal is Red (on phase 0).
+S_go(1)	Go State	Main signal is Green (on phase 1).
+S_neighbour(x)	Neighbor State	State is influenced by the neighbor's signal status (x).
   
 ### Sample State
-Dimensions: (Length, Width, Height) = (10 cm, 5 cm, 2 cm). Weight: 100 grams. Color: Blue.
+(Low Congestion, Queue Length 5, Neighbor Signal Red)
 
 ### Action Space
-{F,E} -> {0,1} where, "E->Export" , "F->Mark as Faulty"
+A_0,Set main signal to Red and the cross-road signal to Green.
+A_1,Set main signal to Green and the cross-road signal to Red.
 
 ### Sample Action
-E-> 1
-product is ready for Export.
+is A_1: Set main signal to **Green** and the cross-road signal to **Red**.
 
 ### Reward Function
-R = { +10 for correctly exporting a ready product, -10 for exporting a faulty product}
+If Congestion(t+1) < Congestion(t) implies R = +1
+
+If Queue_len(t+1) < Queue_Len(t) implies R = -n.
 
 ### Graphical Representation
-![Uploading image.png…]()
+<img width="814" height="1280" alt="image" src="https://github.com/user-attachments/assets/ae817d3b-e4ac-4879-904e-08a412034da2" />
 
 ## PYTHON REPRESENTATION:
 ```python
